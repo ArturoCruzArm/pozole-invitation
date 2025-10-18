@@ -492,47 +492,45 @@ document.querySelectorAll('.pozole-type').forEach(card => {
     });
 });
 
-// Reproductor de Música
+// Reproductor de Música Flotante
 const audioPlayer = document.getElementById('audioPlayer');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const volumeSlider = document.getElementById('volumeSlider');
-const progressFill = document.getElementById('progressFill');
-const vinylRecord = document.querySelector('.vinyl-record');
-const playIcon = document.querySelector('.play-icon');
+const musicFloatBtn = document.getElementById('musicFloatBtn');
+const musicIcon = document.querySelector('.music-icon');
 
 let isPlaying = false;
 
 // Configurar volumen inicial
 if (audioPlayer) {
-    audioPlayer.volume = 0.7;
+    audioPlayer.volume = 0.6;
 
     // Intentar autoplay cuando se carga la página
     audioPlayer.play().then(() => {
         isPlaying = true;
-        playIcon.textContent = '⏸️';
-        vinylRecord.classList.add('playing');
+        musicFloatBtn.classList.add('playing');
+        musicFloatBtn.classList.remove('paused');
     }).catch((error) => {
-        // Si el autoplay es bloqueado por el navegador, mostrar botón de play
+        // Si el autoplay es bloqueado por el navegador
         console.log('Autoplay bloqueado. El usuario debe hacer clic para reproducir.');
         isPlaying = false;
-        playIcon.textContent = '▶️';
+        musicFloatBtn.classList.add('paused');
+        musicFloatBtn.classList.remove('playing');
     });
 
     // Detectar cuando el audio realmente empieza a reproducir
     audioPlayer.addEventListener('play', () => {
         isPlaying = true;
-        playIcon.textContent = '⏸️';
-        vinylRecord.classList.add('playing');
+        musicFloatBtn.classList.add('playing');
+        musicFloatBtn.classList.remove('paused');
     });
 
     audioPlayer.addEventListener('pause', () => {
         isPlaying = false;
-        playIcon.textContent = '▶️';
-        vinylRecord.classList.remove('playing');
+        musicFloatBtn.classList.add('paused');
+        musicFloatBtn.classList.remove('playing');
     });
 }
 
-function togglePlayPause() {
+function toggleMusic() {
     if (isPlaying) {
         audioPlayer.pause();
     } else {
@@ -540,33 +538,15 @@ function togglePlayPause() {
             createConfetti();
         }).catch((error) => {
             console.log('No se pudo reproducir el audio:', error);
-            alert('El archivo de audio "verso_1.mp3" no está disponible. Por favor, agregue el archivo de audio al proyecto.');
         });
     }
 }
 
-function changeVolume() {
-    audioPlayer.volume = volumeSlider.value / 100;
-}
-
-// Actualizar barra de progreso
-if (audioPlayer) {
-    audioPlayer.addEventListener('timeupdate', () => {
-        const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressFill.style.width = progress + '%';
-    });
-
-    // Reiniciar al terminar (aunque está en loop)
-    audioPlayer.addEventListener('ended', () => {
-        progressFill.style.width = '0%';
-    });
-}
-
-// Control de teclado para el reproductor
+// Control de teclado para el reproductor (tecla M)
 document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+    if (e.key.toLowerCase() === 'm') {
         e.preventDefault();
-        togglePlayPause();
+        toggleMusic();
     }
 });
 

@@ -13,7 +13,7 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
 
-    <link rel="stylesheet" href="style.css?v=5.0">
+    <link rel="stylesheet" href="style.css?v=6.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -127,39 +127,15 @@
             </div>
         </section>
 
-        <!-- Reproductor de Música -->
-        <section class="music-section">
-            <h2 class="music-title">Música para Celebrar</h2>
-            <p class="music-subtitle">Disfruta de la canción especial</p>
+        <!-- Audio oculto con autoplay -->
+        <audio id="audioPlayer" loop autoplay>
+            <source src="verso_1.mp3" type="audio/mpeg">
+        </audio>
 
-            <div class="music-player">
-                <div class="music-visual">
-                    <div class="vinyl-record">
-                        <div class="vinyl-center"></div>
-                    </div>
-                </div>
-                <div class="music-info">
-                    <h3 class="song-title">verso_1</h3>
-                    <p class="song-artist">Canción especial de celebración</p>
-                </div>
-                <audio id="audioPlayer" loop autoplay>
-                    <source src="verso_1.mp3" type="audio/mpeg">
-                    Tu navegador no soporta audio HTML5.
-                </audio>
-                <div class="music-controls">
-                    <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">
-                        <span class="play-icon">▶️</span>
-                    </button>
-                    <div class="volume-control">
-                        <span class="volume-icon">🔊</span>
-                        <input type="range" id="volumeSlider" min="0" max="100" value="70" onchange="changeVolume()">
-                    </div>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </div>
-        </section>
+        <!-- Botón flotante de música -->
+        <button class="music-float-btn" id="musicFloatBtn" onclick="toggleMusic()">
+            <span class="music-icon">🎵</span>
+        </button>
 
         <!-- Confirmación -->
         <section class="rsvp">
@@ -197,6 +173,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=5.0"></script>
+    <script src="script.js?v=6.0"></script>
 </body>
 </html>
