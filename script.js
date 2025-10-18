@@ -498,27 +498,16 @@ const musicFloatBtn = document.getElementById('musicFloatBtn');
 const musicIcon = document.querySelector('.music-icon');
 
 let isPlaying = false;
+let hasStarted = false;
 
 // Configurar volumen inicial
 if (audioPlayer) {
     audioPlayer.volume = 0.6;
 
-    // Intentar autoplay cuando se carga la página
-    audioPlayer.play().then(() => {
-        isPlaying = true;
-        musicFloatBtn.classList.add('playing');
-        musicFloatBtn.classList.remove('paused');
-    }).catch((error) => {
-        // Si el autoplay es bloqueado por el navegador
-        console.log('Autoplay bloqueado. El usuario debe hacer clic para reproducir.');
-        isPlaying = false;
-        musicFloatBtn.classList.add('paused');
-        musicFloatBtn.classList.remove('playing');
-    });
-
     // Detectar cuando el audio realmente empieza a reproducir
     audioPlayer.addEventListener('play', () => {
         isPlaying = true;
+        hasStarted = true;
         musicFloatBtn.classList.add('playing');
         musicFloatBtn.classList.remove('paused');
     });
@@ -528,15 +517,35 @@ if (audioPlayer) {
         musicFloatBtn.classList.add('paused');
         musicFloatBtn.classList.remove('playing');
     });
+
+    // Reproducir música con el primer click en cualquier parte de la página
+    const startMusicOnFirstClick = () => {
+        if (!hasStarted) {
+            audioPlayer.play().then(() => {
+                createConfetti();
+                console.log('🎵 Música iniciada con el primer click');
+            }).catch((error) => {
+                console.log('No se pudo reproducir el audio:', error);
+            });
+            // Remover el listener después del primer click
+            document.removeEventListener('click', startMusicOnFirstClick);
+            document.removeEventListener('touchstart', startMusicOnFirstClick);
+        }
+    };
+
+    // Escuchar el primer click o touch
+    document.addEventListener('click', startMusicOnFirstClick);
+    document.addEventListener('touchstart', startMusicOnFirstClick);
 }
 
 function toggleMusic() {
+    // Siempre generar confeti al hacer click en el botón
+    createConfetti();
+
     if (isPlaying) {
         audioPlayer.pause();
     } else {
-        audioPlayer.play().then(() => {
-            createConfetti();
-        }).catch((error) => {
+        audioPlayer.play().catch((error) => {
             console.log('No se pudo reproducir el audio:', error);
         });
     }
