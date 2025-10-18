@@ -472,7 +472,120 @@ document.querySelectorAll('.pozole-type').forEach(card => {
     });
 });
 
+// Galería Lightbox
+let currentImageIndex = 0;
+const galleryImages = [
+    { icon: '📸', caption: 'Celebrando juntos' },
+    { icon: '🎂', caption: 'Momentos especiales' },
+    { icon: '💑', caption: 'Arturo y Fabiola' },
+    { icon: '🎉', caption: 'Fiesta inolvidable' },
+    { icon: '💍', caption: 'Amor eterno' },
+    { icon: '🍲', caption: 'Delicioso pozole' }
+];
+
+function openLightbox(index) {
+    currentImageIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContent = document.querySelector('.lightbox-content');
+    const lightboxCaption = document.querySelector('.lightbox-caption');
+
+    // Mostrar lightbox
+    lightbox.style.display = 'block';
+
+    // Actualizar contenido
+    updateLightboxContent();
+
+    // Crear confeti al abrir
+    createConfetti();
+
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.style.animation = 'fadeOut 0.3s';
+
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+        lightbox.style.animation = 'fadeIn 0.3s';
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+function changeImage(direction) {
+    currentImageIndex += direction;
+
+    // Loop around
+    if (currentImageIndex < 0) {
+        currentImageIndex = galleryImages.length - 1;
+    } else if (currentImageIndex >= galleryImages.length) {
+        currentImageIndex = 0;
+    }
+
+    updateLightboxContent();
+}
+
+function updateLightboxContent() {
+    const lightboxContent = document.querySelector('.lightbox-content');
+    const lightboxCaption = document.querySelector('.lightbox-caption');
+    const currentImage = galleryImages[currentImageIndex];
+
+    lightboxContent.innerHTML = `
+        <div class="lightbox-placeholder">
+            <div class="lightbox-placeholder-icon">${currentImage.icon}</div>
+            <p class="lightbox-placeholder-text">${currentImage.caption}</p>
+        </div>
+    `;
+
+    lightboxCaption.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+
+    // Animación de entrada
+    lightboxContent.style.animation = 'none';
+    setTimeout(() => {
+        lightboxContent.style.animation = 'zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    }, 10);
+}
+
+// Cerrar lightbox con tecla ESC
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.style.display === 'block') {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+            changeImage(-1);
+        } else if (e.key === 'ArrowRight') {
+            changeImage(1);
+        }
+    }
+});
+
+// Cerrar lightbox al hacer clic fuera de la imagen
+document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') {
+        closeLightbox();
+    }
+});
+
+// Animación de entrada para elementos de la galería
+document.querySelectorAll('.gallery-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(50px)';
+    el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    observer.observe(el);
+});
+
+// Forzar recarga si la página está en caché
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+
 console.log('🎉 ¡Invitación cargada con éxito! 🍲');
 console.log('💕 Celebremos juntos el cumpleaños y aniversario de Arturo y Fabiola 💕');
 console.log('🚗 Botones de Uber y DiDi disponibles para transporte fácil');
 console.log('🍲 ¡Elige entre pozole rojo o verde!');
+console.log('📸 Galería de fotos con lightbox interactivo');
+console.log('📅 Fecha actualizada: Domingo 19 de Octubre 2025');
