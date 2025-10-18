@@ -376,8 +376,8 @@ resizeObserver.observe(document.body);
 // Función para abrir Uber con el destino
 function openUber() {
     const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
-    const lat = '25.7617'; // Latitud de la dirección
-    const lng = '-100.3090'; // Longitud de la dirección
+    const lat = '21.183568068517882'; // Latitud exacta de la dirección
+    const lng = '-101.66613701310614'; // Longitud exacta de la dirección
 
     // Deep link de Uber con coordenadas para mejor precisión
     const uberAppUrl = `uber://?action=setPickup&pickup=my_location&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}&dropoff[nickname]=${encodeURIComponent('Hacienda Echeveste')}&dropoff[formatted_address]=${encodeURIComponent(address)}`;
@@ -402,8 +402,8 @@ function openUber() {
 // Función para abrir DiDi con el destino
 function openDidi() {
     const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
-    const lat = '25.7617'; // Latitud de la dirección
-    const lng = '-100.3090'; // Longitud de la dirección
+    const lat = '21.183568068517882'; // Latitud exacta de la dirección
+    const lng = '-101.66613701310614'; // Longitud exacta de la dirección
 
     // Deep link de DiDi con coordenadas exactas
     const didiAppUrl = `didiglobal://DiDiWebView?url=https://page.didiglobal.com/passenger/pwa/?lat=${lat}&lng=${lng}&address=${encodeURIComponent(address)}`;
