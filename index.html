@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Celebración de cumpleaños y aniversario de Arturo y Fabiola - 18 de Octubre 2025">
+    <meta name="theme-color" content="#667eea">
     <title>Celebración de Arturo y Fabiola - Pozole Party 🎉</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +61,24 @@
                 <div class="pozole-icon">🍲</div>
                 <h3 class="dish-name">Pozole Tradicional</h3>
                 <p class="dish-description">Preparado con todo el amor y las mejores especias</p>
+
+                <!-- Opciones de Pozole -->
+                <div class="pozole-options">
+                    <h4 class="options-title">Elige tu favorito:</h4>
+                    <div class="pozole-types">
+                        <div class="pozole-type pozole-rojo">
+                            <div class="type-icon">🔴</div>
+                            <h5>Pozole Rojo</h5>
+                            <p>Con chile guajillo y especias aromáticas</p>
+                        </div>
+                        <div class="pozole-type pozole-verde">
+                            <div class="type-icon">🟢</div>
+                            <h5>Pozole Verde</h5>
+                            <p>Con salsa verde de pepita y cilantro</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="ingredients">
                     <span class="ingredient">🌽 Maíz</span>
                     <span class="ingredient">🥩 Carne</span>
@@ -85,9 +109,24 @@
                 <h3>Lugar</h3>
                 <p class="detail-text">Mercurio de Echeveste 129 Int. 11</p>
                 <p class="detail-subtext">Hacienda Echeveste</p>
-                <button class="map-button" onclick="openMap()">
-                    Ver en Google Maps 🗺️
-                </button>
+                <div class="location-buttons">
+                    <button class="map-button" onclick="openMap()">
+                        Ver en Google Maps 🗺️
+                    </button>
+                    <div class="transport-buttons">
+                        <h4 class="transport-title">¿Necesitas transporte?</h4>
+                        <div class="transport-options">
+                            <button class="transport-btn uber-btn" onclick="openUber()">
+                                <span class="transport-logo">🚗</span>
+                                <span>Pedir Uber</span>
+                            </button>
+                            <button class="transport-btn didi-btn" onclick="openDidi()">
+                                <span class="transport-logo">🚕</span>
+                                <span>Pedir DiDi</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

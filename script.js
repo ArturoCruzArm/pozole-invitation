@@ -373,5 +373,106 @@ const resizeObserver = new ResizeObserver(() => {
 });
 resizeObserver.observe(document.body);
 
+// Función para abrir Uber con el destino
+function openUber() {
+    const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
+    const encodedAddress = encodeURIComponent(address);
+
+    // URL de Uber con destino predefinido
+    const uberUrl = `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodedAddress}`;
+
+    // Efecto de confeti antes de abrir Uber
+    createConfetti();
+
+    setTimeout(() => {
+        window.open(uberUrl, '_blank');
+    }, 500);
+}
+
+// Función para abrir DiDi con el destino
+function openDidi() {
+    const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
+    const encodedAddress = encodeURIComponent(address);
+
+    // URL de DiDi con destino predefinido
+    const didiUrl = `https://web.didiglobal.com/co/?to=${encodedAddress}`;
+
+    // Efecto de confeti antes de abrir DiDi
+    createConfetti();
+
+    setTimeout(() => {
+        window.open(didiUrl, '_blank');
+    }, 500);
+}
+
+// Agregar vibración a los botones de transporte
+document.querySelectorAll('.transport-btn').forEach(button => {
+    button.addEventListener('mouseenter', () => {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(50);
+        }
+    });
+
+    button.addEventListener('click', () => {
+        if ('vibrate' in navigator) {
+            navigator.vibrate([100, 50, 100]);
+        }
+    });
+});
+
+// Efecto de animación para las tarjetas de pozole
+document.querySelectorAll('.pozole-type').forEach(card => {
+    card.addEventListener('click', () => {
+        // Efecto de selección con confeti pequeño
+        const confettiCount = 20;
+        const confettiEmojis = card.classList.contains('pozole-rojo') ? ['🔴', '🌶️', '❤️'] : ['🟢', '🌿', '💚'];
+
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = '-20px';
+                confetti.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                confetti.style.zIndex = '10000';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.userSelect = 'none';
+                confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+
+                document.body.appendChild(confetti);
+
+                const duration = Math.random() * 2 + 1;
+                const rotations = Math.random() * 3 + 1;
+                const xMovement = (Math.random() - 0.5) * 100;
+
+                confetti.animate([
+                    {
+                        transform: 'translateY(0) translateX(0) rotate(0deg)',
+                        opacity: 1
+                    },
+                    {
+                        transform: `translateY(${window.innerHeight + 100}px) translateX(${xMovement}px) rotate(${rotations * 360}deg)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration * 1000);
+            }, i * 10);
+        }
+
+        // Vibración en dispositivos móviles
+        if ('vibrate' in navigator) {
+            navigator.vibrate([50, 30, 50]);
+        }
+    });
+});
+
 console.log('🎉 ¡Invitación cargada con éxito! 🍲');
 console.log('💕 Celebremos juntos el cumpleaños y aniversario de Arturo y Fabiola 💕');
+console.log('🚗 Botones de Uber y DiDi disponibles para transporte fácil');
+console.log('🍲 ¡Elige entre pozole rojo o verde!');
