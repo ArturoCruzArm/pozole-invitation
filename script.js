@@ -392,16 +392,26 @@ function openUber() {
 // Función para abrir DiDi con el destino
 function openDidi() {
     const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
-    const encodedAddress = encodeURIComponent(address);
+    const lat = '25.686613'; // Latitud aproximada de Monterrey
+    const lng = '-100.316113'; // Longitud aproximada de Monterrey
 
-    // URL de DiDi con destino predefinido
-    const didiUrl = `https://web.didiglobal.com/co/?to=${encodedAddress}`;
+    // URL Deep link de DiDi para abrir la app directamente
+    const didiAppUrl = `didiglobal://DiDiWebView?url=https://page.didiglobal.com/passenger/pwa/?to=${encodeURIComponent(address)}`;
+
+    // Fallback a la web si no tiene la app instalada
+    const didiWebUrl = `https://page.didiglobal.com/passenger/pwa/?to=${encodeURIComponent(address)}`;
 
     // Efecto de confeti antes de abrir DiDi
     createConfetti();
 
     setTimeout(() => {
-        window.open(didiUrl, '_blank');
+        // Intentar abrir la app primero
+        window.location.href = didiAppUrl;
+
+        // Fallback a la web después de 2 segundos si no abrió la app
+        setTimeout(() => {
+            window.open(didiWebUrl, '_blank');
+        }, 2000);
     }, 500);
 }
 
@@ -485,23 +495,41 @@ let isPlaying = false;
 // Configurar volumen inicial
 if (audioPlayer) {
     audioPlayer.volume = 0.7;
+
+    // Intentar autoplay cuando se carga la página
+    audioPlayer.play().then(() => {
+        isPlaying = true;
+        playIcon.textContent = '⏸️';
+        vinylRecord.classList.add('playing');
+    }).catch((error) => {
+        // Si el autoplay es bloqueado por el navegador, mostrar botón de play
+        console.log('Autoplay bloqueado. El usuario debe hacer clic para reproducir.');
+        isPlaying = false;
+        playIcon.textContent = '▶️';
+    });
+
+    // Detectar cuando el audio realmente empieza a reproducir
+    audioPlayer.addEventListener('play', () => {
+        isPlaying = true;
+        playIcon.textContent = '⏸️';
+        vinylRecord.classList.add('playing');
+    });
+
+    audioPlayer.addEventListener('pause', () => {
+        isPlaying = false;
+        playIcon.textContent = '▶️';
+        vinylRecord.classList.remove('playing');
+    });
 }
 
 function togglePlayPause() {
     if (isPlaying) {
         audioPlayer.pause();
-        playIcon.textContent = '▶️';
-        vinylRecord.classList.remove('playing');
-        isPlaying = false;
     } else {
         audioPlayer.play().then(() => {
-            playIcon.textContent = '⏸️';
-            vinylRecord.classList.add('playing');
-            isPlaying = true;
             createConfetti();
         }).catch((error) => {
             console.log('No se pudo reproducir el audio:', error);
-            // Si no hay archivo, mostrar mensaje
             alert('El archivo de audio "verso_1.mp3" no está disponible. Por favor, agregue el archivo de audio al proyecto.');
         });
     }
