@@ -376,30 +376,40 @@ resizeObserver.observe(document.body);
 // Función para abrir Uber con el destino
 function openUber() {
     const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
-    const encodedAddress = encodeURIComponent(address);
+    const lat = '25.7617'; // Latitud de la dirección
+    const lng = '-100.3090'; // Longitud de la dirección
 
-    // URL de Uber con destino predefinido
-    const uberUrl = `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=${encodedAddress}`;
+    // Deep link de Uber con coordenadas para mejor precisión
+    const uberAppUrl = `uber://?action=setPickup&pickup=my_location&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}&dropoff[nickname]=${encodeURIComponent('Hacienda Echeveste')}&dropoff[formatted_address]=${encodeURIComponent(address)}`;
+
+    // URL web de Uber como fallback
+    const uberWebUrl = `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}&dropoff[nickname]=${encodeURIComponent('Hacienda Echeveste')}&dropoff[formatted_address]=${encodeURIComponent(address)}`;
 
     // Efecto de confeti antes de abrir Uber
     createConfetti();
 
     setTimeout(() => {
-        window.open(uberUrl, '_blank');
+        // Intentar abrir la app primero
+        window.location.href = uberAppUrl;
+
+        // Fallback a la web después de 1.5 segundos si no abrió la app
+        setTimeout(() => {
+            window.open(uberWebUrl, '_blank');
+        }, 1500);
     }, 500);
 }
 
 // Función para abrir DiDi con el destino
 function openDidi() {
     const address = 'Mercurio de Echeveste 129 Int. 11, Hacienda Echeveste';
-    const lat = '25.686613'; // Latitud aproximada de Monterrey
-    const lng = '-100.316113'; // Longitud aproximada de Monterrey
+    const lat = '25.7617'; // Latitud de la dirección
+    const lng = '-100.3090'; // Longitud de la dirección
 
-    // URL Deep link de DiDi para abrir la app directamente
-    const didiAppUrl = `didiglobal://DiDiWebView?url=https://page.didiglobal.com/passenger/pwa/?to=${encodeURIComponent(address)}`;
+    // Deep link de DiDi con coordenadas exactas
+    const didiAppUrl = `didiglobal://DiDiWebView?url=https://page.didiglobal.com/passenger/pwa/?lat=${lat}&lng=${lng}&address=${encodeURIComponent(address)}`;
 
-    // Fallback a la web si no tiene la app instalada
-    const didiWebUrl = `https://page.didiglobal.com/passenger/pwa/?to=${encodeURIComponent(address)}`;
+    // Fallback a la web si no tiene la app instalada con coordenadas
+    const didiWebUrl = `https://page.didiglobal.com/passenger/pwa/?lat=${lat}&lng=${lng}&address=${encodeURIComponent(address)}`;
 
     // Efecto de confeti antes de abrir DiDi
     createConfetti();
@@ -408,10 +418,10 @@ function openDidi() {
         // Intentar abrir la app primero
         window.location.href = didiAppUrl;
 
-        // Fallback a la web después de 2 segundos si no abrió la app
+        // Fallback a la web después de 1.5 segundos si no abrió la app
         setTimeout(() => {
             window.open(didiWebUrl, '_blank');
-        }, 2000);
+        }, 1500);
     }, 500);
 }
 
