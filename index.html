@@ -13,7 +13,7 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
 
-    <link rel="stylesheet" href="style.css?v=2.0">
+    <link rel="stylesheet" href="style.css?v=3.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -127,64 +127,39 @@
             </div>
         </section>
 
-        <!-- Galería de Fotos -->
-        <section class="gallery-section">
-            <h2 class="gallery-title">Momentos Especiales</h2>
-            <p class="gallery-subtitle">Celebrando juntos</p>
+        <!-- Reproductor de Música -->
+        <section class="music-section">
+            <h2 class="music-title">Música para Celebrar</h2>
+            <p class="music-subtitle">Disfruta de la canción especial</p>
 
-            <div class="gallery-grid">
-                <div class="gallery-item" onclick="openLightbox(0)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">📸</div>
-                        <p class="placeholder-text">Foto 1</p>
+            <div class="music-player">
+                <div class="music-visual">
+                    <div class="vinyl-record">
+                        <div class="vinyl-center"></div>
                     </div>
                 </div>
-                <div class="gallery-item" onclick="openLightbox(1)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">🎂</div>
-                        <p class="placeholder-text">Foto 2</p>
+                <div class="music-info">
+                    <h3 class="song-title">verso_1</h3>
+                    <p class="song-artist">Canción especial de celebración</p>
+                </div>
+                <audio id="audioPlayer" loop>
+                    <source src="verso_1.mp3" type="audio/mpeg">
+                    Tu navegador no soporta audio HTML5.
+                </audio>
+                <div class="music-controls">
+                    <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">
+                        <span class="play-icon">▶️</span>
+                    </button>
+                    <div class="volume-control">
+                        <span class="volume-icon">🔊</span>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="70" onchange="changeVolume()">
                     </div>
                 </div>
-                <div class="gallery-item" onclick="openLightbox(2)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">💑</div>
-                        <p class="placeholder-text">Foto 3</p>
-                    </div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(3)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">🎉</div>
-                        <p class="placeholder-text">Foto 4</p>
-                    </div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(4)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">💍</div>
-                        <p class="placeholder-text">Foto 5</p>
-                    </div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox(5)">
-                    <div class="gallery-placeholder">
-                        <div class="placeholder-icon">🍲</div>
-                        <p class="placeholder-text">Foto 6</p>
-                    </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
         </section>
-
-        <!-- Lightbox Modal -->
-        <div id="lightbox" class="lightbox">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <span class="lightbox-prev" onclick="changeImage(-1)">&#10094;</span>
-            <span class="lightbox-next" onclick="changeImage(1)">&#10095;</span>
-            <div class="lightbox-content">
-                <div class="lightbox-placeholder">
-                    <div class="lightbox-placeholder-icon">📷</div>
-                    <p class="lightbox-placeholder-text">Imagen de celebración</p>
-                </div>
-            </div>
-            <div class="lightbox-caption"></div>
-        </div>
 
         <!-- Confirmación -->
         <section class="rsvp">
@@ -222,6 +197,6 @@
         </div>
     </div>
 
-    <script src="script.js?v=2.0"></script>
+    <script src="script.js?v=3.0"></script>
 </body>
 </html>

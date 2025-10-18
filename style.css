@@ -792,13 +792,13 @@ body {
     -webkit-backdrop-filter: blur(20px);
 }
 
-/* Gallery Section */
-.gallery-section {
+/* Music Section */
+.music-section {
     padding: 80px 20px;
     text-align: center;
 }
 
-.gallery-title {
+.music-title {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
     color: white;
@@ -807,183 +807,203 @@ body {
     text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-.gallery-subtitle {
+.music-subtitle {
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 50px;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
+.music-player {
+    max-width: 600px;
     margin: 0 auto;
-}
-
-.gallery-item {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 40px;
+    padding: 50px 40px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s;
 }
 
-.gallery-item:hover {
-    transform: translateY(-15px) scale(1.05);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.6);
+.music-player:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
-.gallery-placeholder {
-    width: 100%;
-    height: 100%;
+.music-visual {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
+    margin-bottom: 30px;
 }
 
-.placeholder-icon {
-    font-size: 5rem;
-    margin-bottom: 15px;
-    animation: float 3s ease-in-out infinite;
+.vinyl-record {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 40px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
 }
 
-.placeholder-text {
-    font-size: 1.5rem;
-    color: white;
-    font-weight: 600;
+.vinyl-record.playing {
+    animation: spin 3s linear infinite;
 }
 
-/* Lightbox */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    animation: fadeIn 0.3s;
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-.lightbox-content {
+.vinyl-center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 90%;
-    max-height: 85%;
-    animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
-@keyframes zoomIn {
-    from {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-    to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
+.vinyl-record::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.lightbox-placeholder {
-    background: rgba(255, 255, 255, 0.1);
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 80px 60px;
+.music-info {
+    margin-bottom: 30px;
+}
+
+.song-title {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.song-artist {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.music-controls {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.lightbox-placeholder-icon {
-    font-size: 8rem;
+    gap: 30px;
     margin-bottom: 20px;
 }
 
-.lightbox-placeholder-text {
-    font-size: 2rem;
-    color: white;
-    font-weight: 600;
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 30px;
-    right: 50px;
-    color: white;
-    font-size: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    z-index: 10001;
-    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.lightbox-close:hover {
-    transform: scale(1.2) rotate(90deg);
-    color: #ff6b6b;
-}
-
-.lightbox-prev,
-.lightbox-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: white;
-    font-size: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 20px;
-    transition: all 0.3s;
-    user-select: none;
-    text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    z-index: 10001;
-}
-
-.lightbox-prev {
-    left: 30px;
-}
-
-.lightbox-next {
-    right: 30px;
-}
-
-.lightbox-prev:hover,
-.lightbox-next:hover {
-    transform: translateY(-50%) scale(1.3);
-    color: #4ecdc4;
-}
-
-.lightbox-caption {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 1.5rem;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px 40px;
-    border-radius: 50px;
+.control-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.control-btn:hover {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.play-icon {
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.volume-icon {
+    font-size: 1.5rem;
+}
+
+#volumeSlider {
+    width: 150px;
+    height: 6px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+#volumeSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+#volumeSlider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    border-radius: 10px;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
 /* Ocultar emojis flotantes */
@@ -1035,44 +1055,30 @@ body {
         width: 100%;
     }
 
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
+    .music-player {
+        padding: 40px 20px;
     }
 
-    .gallery-title {
+    .music-title {
         font-size: 2rem;
     }
 
-    .lightbox-close {
-        top: 15px;
-        right: 20px;
-        font-size: 40px;
+    .vinyl-record {
+        width: 140px;
+        height: 140px;
     }
 
-    .lightbox-prev,
-    .lightbox-next {
-        font-size: 35px;
-        padding: 10px;
+    .music-controls {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .lightbox-prev {
-        left: 10px;
+    .volume-control {
+        width: 100%;
+        justify-content: center;
     }
 
-    .lightbox-next {
-        right: 10px;
-    }
-
-    .lightbox-placeholder {
-        padding: 40px 30px;
-    }
-
-    .lightbox-placeholder-icon {
-        font-size: 5rem;
-    }
-
-    .lightbox-placeholder-text {
-        font-size: 1.3rem;
+    #volumeSlider {
+        width: 200px;
     }
 }
